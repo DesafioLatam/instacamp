@@ -1,0 +1,8 @@
+<div>
+	<figure ng-repeat="capture in Captures.captures">
+		<img ng-src="{{capture.photo}}" />
+		<figcaption>
+			<p><b>{{capture.comment}}</b> by {{capture.user}}</p>
+		</figcaption>
+	</figure>
+</div>
