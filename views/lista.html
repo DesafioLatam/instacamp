@@ -1,8 +1,12 @@
+<button ng-controller="LoginCtrl" ng-click="Account.logout()">Logout</button>
+<button ui-sref="new">New</button>
+
 <div ng-show="!Captures.loading">
 	<figure ng-repeat="capture in Captures.captures">
 		<img ng-src="http://api.instacamp.ml{{capture.photo}}" width="400" />
 		<figcaption>
-			<p><b>{{DOMAIN}}</b> by {{capture.user}}</p>
+			<p><b>{{DOMAIN}}</b> by {{capture.user}} {{capture.id}}</p>
+			<button ng-click="Captures.delete(capture.id)">Eliminar</button>
 		</figcaption>
 	</figure>
 </div>

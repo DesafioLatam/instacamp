@@ -1,0 +1,14 @@
+<div>
+	<form ng-submit="Captures.create()">
+
+		<input ng-model="Captures.form.comment" type="text" placeholder="Comment"></input>
+		<input ng-model="Captures.form.image" base-sixty-four-input type="file"></input>
+
+		<button type="submit">Crear</button>
+
+	</form>
+</div>
+
+<div ng-show="Captures.loading">
+	<h2>Enviando...</h2>
+</div>

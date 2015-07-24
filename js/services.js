@@ -5,7 +5,8 @@ myApp
 	var that = this;
 	this.email;
 	this.password;
-	this.url = DOMAIN + '/sessions';
+	this.userid;
+	this.url = DOMAIN + '/sessions/';
 	this.loading = false;
 
 	this.login = function() {
@@ -20,6 +21,7 @@ myApp
 		.success(function(data) {
 			$http.defaults.headers.common['auth_token'] = data.auth_token;
 			localStorage.setItem('token', data.auth_token);
+			localStorage.setItem('userid', data.id);
 			$state.go('lista');
 		})
 		.error(function(data) {
@@ -32,15 +34,28 @@ myApp
 		});
 	};
 
+	this.logout = function() {
+		var id = localStorage.getItem('userid');
+		$http.delete(this.url + id)
+		.success(function() {
+			console.log('Logout');
+			$state.go('login');
+		})
+		.finally(function() {
+			localStorage.clear();
+		});
+	}
+
 	this.getToken = function() {
 		return localStorage.getItem('token');
 	};
 }])
-.service('Captures', ['$http', 'DOMAIN', function($http, DOMAIN){
+.service('Captures', ['$http', '$state', 'DOMAIN', function($http, $state, DOMAIN){
 	var that = this;
 	this.capture = {};
 	this.captures = [];
-	this.url = DOMAIN + '/v1/captures';
+	this.form = {};
+	this.url = DOMAIN + '/v1/captures/';
 	this.loading = false;
 
 	this.cget = function() {
@@ -67,6 +82,9 @@ myApp
 
 	this.create = function() {
 		this.loading = true;
+		console.log(this.form.comment);
+		console.log(this.form.image);
+
 		$http.post(this.url, {
 			capture: {
 				comment: this.form.comment
@@ -78,10 +96,11 @@ myApp
 		})
 		.finally(function() {
 			that.loading = false;
+			$state.go('lista');
 		});
 	};
 
-	this.update = function() {
+	this.update = function(id) {
 		this.loading = true;
 		$http.patch(this.url + id, {
 			capture: {
@@ -97,14 +116,13 @@ myApp
 		});
 	};
 
-	this.delete = function() {
-		this.loading = true;
+	this.delete = function(id) {
 		$http.delete(this.url + id)
 		.success(function() {
 			console.log('Eliminado');
 		})
 		.finally(function() {
-			that.loading = false;
+			that.cget();
 		});
 	};
 }])

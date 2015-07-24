@@ -1,7 +1,7 @@
 var myApp = angular.module('myApp');
 
 myApp
-.controller('LoginCtrl', ['$scope', 'Account', function($scope, Account){
+.controller('LoginCtrl', ['$scope', '$stateParams', 'Account', function($scope, $stateParams, Account){
 	$scope.Account = Account;
 }])
 .controller('ListaCtrl', ['$scope', 'Captures', function($scope, Captures){
