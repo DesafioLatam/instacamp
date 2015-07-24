@@ -1,8 +1,14 @@
-<form ng-submit="Account.login()">
+<div ng-show="!Account.loading">
+	<form ng-submit="Account.login()">
 
-	<input ng-model="Account.email" type="text" placeholder="Email"></input>
-	<input ng-model="Account.password" type="password" placeholder="Contraseña"></input>
+		<input ng-model="Account.email" type="text" placeholder="Email"></input>
+		<input ng-model="Account.password" type="password" placeholder="Contraseña"></input>
 
-	<button type="submit">Log In</button>
+		<button type="submit">Log In</button>
 
-</form>
+	</form>
+</div>
+
+<div ng-show="Account.loading">
+	<h2>Cargando...</h2>
+</div>

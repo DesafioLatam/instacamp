@@ -1,8 +1,12 @@
-<div>
+<div ng-show="!Captures.loading">
 	<figure ng-repeat="capture in Captures.captures">
-		<img ng-src="http://104.236.63.176{{capture.photo}}" width="400" />
+		<img ng-src="http://api.instacamp.ml{{capture.photo}}" width="400" />
 		<figcaption>
-			<p><b>{{capture.comment}}</b> by {{capture.user}}</p>
+			<p><b>{{DOMAIN}}</b> by {{capture.user}}</p>
 		</figcaption>
 	</figure>
+</div>
+
+<div ng-show="Captures.loading">
+	<h2>Cargando...</h2>
 </div>

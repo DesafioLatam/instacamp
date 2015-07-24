@@ -18,7 +18,8 @@ myApp
 	})
 
 }])
-.run(['$http', '$state', 'Account', function($http, $state, Account){
+.run(['$rootScope', '$http', '$state', 'Account', 'DOMAIN', function($rootScope, $http, $state, Account, DOMAIN){
+	$rootScope.DOMAIN = DOMAIN;
 	var token = Account.getToken();
 	if (token) {
 		$http.defaults.headers.common['auth_token'] = token;
